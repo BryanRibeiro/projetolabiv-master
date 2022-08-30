@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.projetolabiv.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,14 +40,16 @@ public class SegurancaServiceimpl implements SegurancaService {
 
     @Override
     public List<Usuario> listarTodosUsuarios() {
-        // TODO Auto-generated method stub
-        return null;
+        return usuarioRepo.findAll();
     }
 
     @Override
     public Usuario buscarUsuarioPorId(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+        Optional<Usuario> usuarioOp = usuarioRepo.findById(id);
+        if(usuarioOp.isEmpty()) {
+            throw new IllegalArgumentException("Id inválido");
+        }
+        return usuarioOp.get();
     }
     
 }
